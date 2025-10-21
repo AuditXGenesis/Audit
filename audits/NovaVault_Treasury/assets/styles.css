@@ -1,0 +1,1 @@
+.content{display:grid;gap:16px}.grid-3{display:grid;gap:16px;grid-template-columns:repeat(3,1fr)}.box{background:var(--card);border:1px solid #1e2a44;border-radius:14px;padding:16px}.muted{color:#94a3b8}.badge{display:inline-block;padding:4px 10px;border-radius:999px;font-weight:700;font-size:12px}.b-red{background:#3b0d0d;color:#fecaca;border:1px solid var(--bad)}

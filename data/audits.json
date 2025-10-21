@@ -1,0 +1,34 @@
+[
+  {
+    "company": "NovaLabs",
+    "project": "NovaVault Treasury",
+    "status": "Verified",
+    "confidence": 4.8,
+    "updated": "2025-10-21",
+    "link": "https://auditx.io/audits/NovaVault_Treasury/"
+  },
+  {
+    "company": "OrbitLabs",
+    "project": "OrbitDEX Perpetuals",
+    "status": "Verified",
+    "confidence": 4.9,
+    "updated": "2025-10-21",
+    "link": "https://auditx.io/audits/OrbitDEX_Perpetuals/"
+  },
+  {
+    "company": "Nebula Finance",
+    "project": "Nebula Vault Protocol",
+    "status": "In Progress",
+    "confidence": null,
+    "updated": "2025-10-21",
+    "link": "https://auditx.io/audits/Nebula_Finance/"
+  },
+  {
+    "company": "Atlas Finance Labs",
+    "project": "AtlasLend Risk Engine",
+    "status": "In Audit",
+    "confidence": null,
+    "updated": "2025-10-21",
+    "link": "https://auditx.io/audits/AtlasLend_RiskEngine/"
+  }
+]

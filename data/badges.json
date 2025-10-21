@@ -1,0 +1,28 @@
+{
+  "NovaVault_Treasury": {
+    "svg": "https://auditx.io/assets/badges/NovaVault_Treasury.svg",
+    "png": "https://auditx.io/assets/badges/NovaVault_Treasury.png",
+    "report": "https://auditx.io/audits/NovaVault_Treasury/"
+  },
+  "OrbitDEX_Perpetuals": {
+    "svg": "https://auditx.io/assets/badges/OrbitDEX_Perpetuals.svg",
+    "png": "https://auditx.io/assets/badges/OrbitDEX_Perpetuals.png",
+    "report": "https://auditx.io/audits/OrbitDEX_Perpetuals/"
+  },
+  "Nebula_Finance": {
+    "svg": "https://auditx.io/assets/badges/Nebula_Finance.svg",
+    "png": "https://auditx.io/assets/badges/Nebula_Finance.png",
+    "report": "https://auditx.io/audits/Nebula_Finance/"
+  },
+  "AtlasLend_RiskEngine": {
+    "svg": "https://auditx.io/assets/badges/AtlasLend_RiskEngine.svg",
+    "png": "https://auditx.io/assets/badges/AtlasLend_RiskEngine.png",
+    "report": "https://auditx.io/audits/AtlasLend_RiskEngine/"
+  },
+  "_generic": {
+    "verified_svg": "https://auditx.io/assets/badges/badge-verified.svg",
+    "verified_png": "https://auditx.io/assets/badges/badge-verified.png",
+    "inaudit_svg": "https://auditx.io/assets/badges/badge-in-audit.svg",
+    "inaudit_png": "https://auditx.io/assets/badges/badge-in-audit.png"
+  }
+}
