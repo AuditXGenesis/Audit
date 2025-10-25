@@ -266,6 +266,38 @@ body {
   color: transparent;
   text-shadow: var(--auditx-glow);
 }
+/* Prevent overflow of long URLs and hashes */
+a, .address, .link, code {
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  display: inline-block;
+  max-width: 100%;
+}
+pre {
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+@media (max-width: 600px) {
+  .card, .section {
+    padding: 1rem;
+    margin: 0.5rem 0;
+  }
+  h1, h2 {
+    font-size: 1.2rem;
+  }
+  table {
+    font-size: 0.85rem;
+  }
+}
+a, .link, .address, code {
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  display: inline-block;
+  max-width: 100%;
+}
+.glow { box-shadow: 0 0 12px rgba(16,185,129,.3); transition: 0.2s; }
 
 /* FOOTER */
 .footer {
