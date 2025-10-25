@@ -2,49 +2,45 @@ name: Daily Knowledge Refresh
 
 on:
   schedule:
-    - cron: '0 3 * * *'   # every day at 03:00 UTC
-  workflow_dispatch:       # allow manual run from Actions tab
+    - cron: "0 4 * * *"   # every day at 4 AM UTC
+  workflow_dispatch:
 
 permissions:
-  contents: write          # we will commit the updated files
+  contents: write
 
 jobs:
   refresh:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          node-version: 20
-          cache: 'npm'
+          python-version: "3.11"
 
-      - name: Install
-        run: npm ci
+      - name: Install dependencies
+        run: |
+          pip install beautifulsoup4 markdownify openai tqdm requests
 
-      # Seed from your live GitHub Pages site
-      - name: Seed knowledge from live site
-        env:
-          BASE_URL: https://auditxgenesis.github.io/Audit   # <— your Pages URL
-        run: npm run seed
+      - name: Seed knowledge
+        run: python scripts/seed_knowledge.py
 
-      # Build embeddings (AUI-Bot knowledge index)
       - name: Build embeddings
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: npm run ingest
+        run: python scripts/build_embeddings.py
 
-      # Commit & push if there are changes
-      - name: Commit changes (if any)
+      - name: Commit updated knowledge
         run: |
           git config user.name "AuditX Bot"
           git config user.email "bot@auditx.io"
-          git add data/embeddings.json data/knowledge || true
+          git add data/knowledge data/embeddings.json || true
           if ! git diff --cached --quiet; then
-            git commit -m "🤖 Nightly knowledge refresh"
+            git commit -m "🤖 Auto-refresh knowledge & embeddings"
             git push
           else
-            echo "No changes to commit."
+            echo "No changes detected — skipping commit."
           fi
