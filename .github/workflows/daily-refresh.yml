@@ -28,9 +28,11 @@ jobs:
       - name: Seed knowledge
         run: python scripts/seed_knowledge.py
 
-      - name: Build embeddings
+            - name: Build embeddings
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          PYTHONPATH: .
+          BASE_DIR: .
         run: python scripts/build_embeddings.py
 
       - name: Commit updated knowledge
