@@ -1,40 +1,166 @@
-<!doctype html><html><head><meta charset='utf-8'/><meta name='viewport' content='width=device-width,initial-scale=1'/>
-<title>AuditX Genesis | Redefining Blockchain Security & Investor Trust</title>
-<meta name='description' content='AuditX Genesis | Redefining Blockchain Security & Investor Trust. Professional smart contract audits and verification via auditx.io.'>
-<meta property='og:title' content='AuditX Genesis | Redefining Blockchain Security & Investor Trust'><meta property='og:description' content='Where Smart Contracts Earn Trust.'>
-<link rel='icon' href='https://auditx.io/assets/favicon.png' sizes='32x32'/><link rel='icon' href='https://auditx.io/assets/favicon.svg' type='image/svg+xml'/>
-<link rel='stylesheet' href='https://auditx.io/assets/global-style.css'>
-<script>if(location.hostname.endsWith('github.io')){location.href='https://auditx.io'+location.pathname+location.search+location.hash;}</script>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>AuditX Genesis | Intelligent. Transparent. Immutable.</title>
+<meta name="description" content="AuditX Genesis | Redefining Blockchain Security & Investor Trust. Professional smart contract audits and verification via auditx.io.">
+<meta property="og:title" content="AuditX Genesis | Redefining Blockchain Security & Investor Trust">
+<meta property="og:description" content="AI-powered smart contract auditing with on-chain verification.">
+<link rel="icon" href="https://auditx.io/assets/favicon.png" sizes="32x32"/>
+<link rel="icon" href="https://auditx.io/assets/favicon.svg" type="image/svg+xml"/>
+<link rel="stylesheet" href="https://auditx.io/assets/global-style.css">
+<script>
+if(location.hostname.endsWith('github.io')){
+  location.href='https://auditx.io'+location.pathname+location.search+location.hash;
+}
+</script>
 </head>
-<body><div class='wrap'>
-  <div class='header'><img src='https://auditx.io/assets/auditx-logo.svg'/><div><h1>AuditX Genesis</h1><div class='muted'>Where Smart Contracts Earn Trust.</div></div></div>
-  <div class='card'>
-    <div class='search'><input id='q' placeholder='Search by company, project, chain, or status…'/><span class='pill' id='count'>0 projects</span></div>
-    <table class='table' id='tbl'><thead><tr><th>Company</th><th>Project</th><th>Status</th><th>Confidence</th><th>Updated</th><th>Report</th></tr></thead><tbody></tbody></table>
+
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="header">
+    <img src="https://auditx.io/assets/auditx-logo.svg" alt="AuditX Genesis Logo"/>
+    <div>
+      <h1>AuditX Genesis</h1>
+      <div class="muted tagline">
+        <span>Intelligent.</span>
+        <span>Transparent.</span>
+        <span>Immutable.</span>
+      </div>
+    </div>
   </div>
-  <div class='press card'>
-    <h3>📰 Press & Listing Integration</h3>
-    <p>Integrate the <b>AuditX Genesis Verification API</b> to confirm live audit status and confidence scores.</p>
+
+  <!-- Neural Status Ticker -->
+  <div class="ticker"><span id="ticker">Loading status...</span></div>
+
+  <!-- Live Stats Dashboard -->
+  <div class="stats">
+    <div class="stat"><h2 id="totalAudits">0</h2><p>Total Audits</p></div>
+    <div class="stat"><h2 id="verifiedAudits">0</h2><p>Verified</p></div>
+    <div class="stat"><h2 id="inAudit">0</h2><p>In Audit</p></div>
+    <div class="stat"><h2 id="avgScore">0</h2><p>Avg Confidence</p></div>
+  </div>
+
+  <!-- AUDIT TABLE -->
+  <div class="card">
+    <div class="search">
+      <input id="q" placeholder="Search by company, project, chain, or status…"/>
+      <span class="pill" id="count">0 projects</span>
+    </div>
+    <table class="table" id="tbl">
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>Project</th>
+          <th>Status</th>
+          <th>Confidence</th>
+          <th>Updated</th>
+          <th>Report</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- ON-CHAIN PROOF SECTION -->
+  <div class="onchain card">
+    <h2>🔗 On-Chain Verification (Coming Soon)</h2>
+    <p>
+      Every verified audit on AuditX Genesis will soon include an immutable on-chain proof —
+      a cryptographic hash stored on the blockchain for transparency and trust.
+    </p>
+    <ul>
+      <li>✅ Verifiable authenticity of audit reports</li>
+      <li>🔒 Tamper-proof record on Ethereum / Polygon / BSC</li>
+      <li>🪙 Public access to verification transactions</li>
+    </ul>
+    <p class="muted">
+      <i>Prototype smart contract deployed at:</i>
+      <code>0x0000000000000000000000000000GENESIS</code><br>
+      <i>Explorer integration &amp; verification UI coming in v3.</i>
+    </p>
+    <div class="onchain-btns">
+      <button class="btn-disabled">View On-Chain Proof (Beta Soon)</button>
+    </div>
+  </div>
+
+  <!-- PRESS / API SECTION -->
+  <div class="press card">
+    <h3>📰 Press &amp; Listing Integration</h3>
+    <p>
+      Integrate the <b>AuditX Genesis Verification API</b> to confirm live audit status and confidence scores.
+    </p>
     <ul>
       <li><b>Verification API:</b> <code>https://auditx.io/data/audits.json</code></li>
       <li><b>Badge Registry:</b> <code>https://auditx.io/data/badges.json</code></li>
-      <li><b>Integration Contact:</b> <a href='mailto:cs@auditx.io'>cs@auditx.io</a></li>
+      <li><b>Integration Contact:</b> <a href="mailto:cs@auditx.io">cs@auditx.io</a></li>
     </ul>
     <p>Benefits: Verified listings • API-driven status sync • Embed-ready badges • Real-time updates.</p>
   </div>
-  <div class='footer'>© 2025 AuditX Genesis • <a href='https://auditx.io'>auditx.io</a> • Where Smart Contracts Earn Trust.</div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    © 2025 AuditX Genesis • <a href="https://auditx.io">auditx.io</a> • Intelligent. Transparent. Immutable.
+  </div>
+
 </div>
+
+<!-- JS ASSETS -->
+<script src="assets/scripts/countup.min.js"></script>
+<script src="assets/scripts/main.js"></script>
+
 <script>
-const $=s=>document.querySelector(s);const tbody=$("#tbl tbody");const count=$("#count");const q=$("#q");
-let rows=[];fetch("https://auditx.io/data/audits.json").then(r=>r.json()).then(d=>{rows=d;render()});
-q.addEventListener("input",render);
-function render(){const n=(q.value||"").toLowerCase();tbody.innerHTML="";let shown=0;
-rows.filter(r=>!n||r.company.toLowerCase().includes(n)||r.project.toLowerCase().includes(n)||r.status.toLowerCase().includes(n)).forEach(r=>{
-  shown++; const b=r.status==='Verified'?'<span class="badge b-green">VERIFIED</span>':(r.status==='In Progress'?'<span class="badge b-amber">IN PROGRESS</span>':'<span class="badge b-red">IN AUDIT</span>');
-  const conf = r.confidence==null?'—':r.confidence.toFixed(1)+' / 5';
-  const link = r.status==='In Audit' || r.status==='In Progress' ? 'Coming Soon 🚀' : `<a href='${r.link}'>View Audit →</a>`;
-  const tr=document.createElement('tr');
-  tr.innerHTML=`<td>${r.company}</td><td>${r.project}</td><td>${b}</td><td>${conf}</td><td>${r.updated}</td><td>${link}</td>`;
-  tbody.appendChild(tr);
-}); count.textContent=`${shown} project${shown===1?'':'s'}`; }
-</script></body></html>
+const $ = s => document.querySelector(s);
+const tbody = $("#tbl tbody");
+const count = $("#count");
+const q = $("#q");
+let rows=[];
+
+// Load data and render
+fetch("https://auditx.io/data/audits.json").then(r=>r.json()).then(d=>{
+  rows=d; render(); buildTickerAndStats(d);
+});
+q.addEventListener("input", render);
+
+function render(){
+  const n=(q.value||"").toLowerCase();
+  tbody.innerHTML="";
+  let shown=0;
+  rows.filter(r=>!n||r.company.toLowerCase().includes(n)||r.project.toLowerCase().includes(n)||r.status.toLowerCase().includes(n))
+  .forEach(r=>{
+    shown++;
+    const b = r.status==='Verified'
+      ? '<span class="badge b-green">VERIFIED</span>'
+      : (r.status==='In Progress'
+          ? '<span class="badge b-amber">IN PROGRESS</span>'
+          : '<span class="badge b-red">IN AUDIT</span>');
+    const conf = r.confidence==null?'—':r.confidence.toFixed(1)+' / 5';
+    const link = (r.status==='In Audit'||r.status==='In Progress')
+      ? 'Coming Soon 🚀'
+      : `<a href='${r.link}'>View Audit →</a>`;
+    const tr=document.createElement("tr");
+    tr.innerHTML=`<td>${r.company}</td>
+      <td>${r.project}</td>
+      <td>${b}</td>
+      <td>${conf}</td>
+      <td>${r.updated}</td>
+      <td>${link}</td>`;
+    tbody.appendChild(tr);
+  });
+  count.textContent=`${shown} project${shown===1?'':'s'}`;
+}
+
+// --- Build ticker & stats dynamically ---
+function buildTickerAndStats(data){
+  const now = data.filter(a=>a.status!=="Verified").map(a=>a.project).join(" • ");
+  const done = data.filter(a=>a.status==="Verified").map(a=>a.project).join(" • ");
+  document.getElementById("ticker").innerHTML =
+    `🔍 Now Auditing: ${now}   ✅ Recently Verified: ${done}`;
+}
+</script>
+<script src="assets/scripts/aui-chat.js"></script>
+</body>
+</html>

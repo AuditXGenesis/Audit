@@ -1,0 +1,54 @@
+{
+  "model": "text-embedding-3-small",
+  "updated_at": "2025-10-25T21:00:00Z",
+  "chunks": [
+    {
+      "id": "whitepaper.md",
+      "source": "whitepaper.md",
+      "content": "AuditX Genesis is a decentralised AI-powered smart-contract auditing ecosystem. Our mission is to provide transparent, tamper-proof and affordable audits for Web3 projects through on-chain verification, Proof-of-Audit attestations and automated reporting. The platform leverages the AUI token as its utility and reward currency. Audits are AI-assisted, reviewed by experts, and anchored on-chain for full transparency.",
+      "embedding": [0.021, -0.007, 0.005, 0.002, -0.004]
+    },
+    {
+      "id": "tokenomics.md",
+      "source": "tokenomics.md",
+      "content": "The AUI token underpins every transaction within the AuditX Genesis ecosystem. Total supply is 1,000,000,000 AUI, with 100% of tokens sold publicly—no team, development or advisor allocations. This ensures complete fairness and decentralisation. AuditX revenues and rewards are paid in AUI or USDT, allowing flexibility for both clients and auditors. AUI is used for Proof-of-Audit fees, staking verifications, and premium AI-analysis requests.",
+      "embedding": [-0.013, 0.002, 0.018, -0.006, 0.004]
+    },
+    {
+      "id": "proof_of_audit.md",
+      "source": "proof_of_audit.md",
+      "content": "Proof-of-Audit (PoA) is the verifiable attestation mechanism of AuditX Genesis. Each completed audit generates a unique on-chain certificate hash signed by the AuditX Genesis node. PoA data can be verified publicly by contract address, ensuring that every reported vulnerability, fix and review is immutable. Projects can display a 'Verified by AuditX Genesis' badge linking directly to their PoA record.",
+      "embedding": [0.010, -0.005, 0.008, 0.004, -0.003]
+    },
+    {
+      "id": "revenue_model.md",
+      "source": "revenue_model.md",
+      "content": "AuditX Genesis monetises through multiple service layers: (1) AI-powered audit subscriptions, (2) instant LiteCheck reports for quick contract reviews, (3) on-chain PoA verification fees, and (4) white-label audit APIs for exchanges and launchpads. Partners may also integrate AUI-Bot and PoA dashboards into their own platforms via paid API endpoints.",
+      "embedding": [0.016, 0.006, -0.005, 0.009, -0.002]
+    },
+    {
+      "id": "litecheck.md",
+      "source": "litecheck.md",
+      "content": "LiteCheck is AuditX Genesis's rapid audit engine designed for early-stage tokens. It runs automated scans for common Solidity vulnerabilities such as reentrancy, overflow, access-control flaws and gas inefficiencies. Each scan outputs a risk rating from 1–5 and a human-readable report. LiteCheck results can later be escalated to a full audit with on-chain PoA certification.",
+      "embedding": [-0.007, 0.012, 0.003, -0.004, 0.008]
+    },
+    {
+      "id": "aui_bot.md",
+      "source": "aui_bot.md",
+      "content": "AUI-Bot is the intelligent audit assistant of AuditX Genesis. It provides conversational explanations of audit reports, whitepaper insights and PoA data. AUI-Bot continuously improves through reinforcement on real audit outcomes. It is integrated into the AuditX dashboard and also available as an embeddable widget for partners.",
+      "embedding": [0.005, -0.003, 0.006, 0.001, -0.002]
+    },
+    {
+      "id": "mission.md",
+      "source": "mission.md",
+      "content": "AuditX Genesis exists to restore trust in decentralised systems by making every audit verifiable, public and tamper-resistant. Our approach combines automation, transparency and reward fairness. We aim to become the global reference standard for decentralised audit proofs.",
+      "embedding": [0.019, -0.008, 0.007, 0.003, 0.002]
+    },
+    {
+      "id": "faq.md",
+      "source": "faq.md",
+      "content": "Q: How can a project request an audit? A: Simply connect the smart contract address and select 'Run LiteCheck' or 'Request Full Audit'. Q: How are auditors rewarded? A: Verified audits generate PoA certificates and rewards paid in USDT or AUI. Q: Can non-developers use the platform? A: Yes, the dashboard is designed for simplicity and transparency.",
+      "embedding": [-0.010, 0.009, -0.004, 0.006, 0.005]
+    }
+  ]
+}
