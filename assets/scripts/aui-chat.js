@@ -1,118 +1,118 @@
-/**
- * =====================================================
- *  AUI-Bot for AuditX Genesis
- *  Local + OpenAI-powered chat assistant
- *  Author: Inferaq AI Labs
- * =====================================================
- */
-
-const OPENAI_KEY = "sk-YOUR_OPENAI_KEY_HERE";   // 🔑 paste your key here
-const EMBED_MODEL = "text-embedding-3-small";
-const CHAT_MODEL  = "gpt-4o-mini";
-
-let embeddings = [];
-let chatVisible = false;
-
-/* ---------------------- Utility ---------------------- */
-function cosineSim(a, b) {
-  const dot = a.reduce((sum, ai, i) => sum + ai * b[i], 0);
-  const na = Math.sqrt(a.reduce((s, ai) => s + ai * ai, 0));
-  const nb = Math.sqrt(b.reduce((s, bi) => s + bi * bi, 0));
-  return dot / (na * nb);
-}
-
-/* ------------------ Load Embeddings ------------------ */
-async function loadEmbeddings() {
-  try {
-    const res = await fetch("/data/embeddings.json");
-    const json = await res.json();
-    embeddings = json.chunks;
-    console.log(`✅ AUI-Bot loaded ${embeddings.length} knowledge chunks.`);
-  } catch (err) {
-    console.error("❌ Failed to load embeddings:", err);
-  }
-}
-
-/* ------------------ Embed Question ------------------- */
-async function embedText(text) {
-  const res = await fetch("https://api.openai.com/v1/embeddings", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${OPENAI_KEY}`
-    },
-    body: JSON.stringify({ model: EMBED_MODEL, input: text })
+// assets/scripts/aui-chat.js
+async function initAUIChat({ welcome, position = "bottom-right", accent = "#10B981" }) {
+  // Chat bubble
+  const bubble = document.createElement("div");
+  bubble.id = "aui-chat-bubble";
+  bubble.innerHTML = "💬";
+  Object.assign(bubble.style, {
+    position: "fixed",
+    bottom: position.includes("bottom") ? "20px" : "",
+    right: position.includes("right") ? "20px" : "",
+    top: position.includes("top") ? "20px" : "",
+    left: position.includes("left") ? "20px" : "",
+    width: "55px",
+    height: "55px",
+    borderRadius: "50%",
+    background: accent,
+    color: "#fff",
+    fontSize: "28px",
+    textAlign: "center",
+    lineHeight: "55px",
+    cursor: "pointer",
+    boxShadow: "0 0 12px rgba(0,0,0,0.4)",
+    zIndex: "9999"
   });
-  const data = await res.json();
-  return data.data[0].embedding;
-}
 
-/* ------------- Find Top Context Snippets ------------- */
-async function findContext(question) {
-  const qEmb = await embedText(question);
-  const scored = embeddings.map(ch => ({
-    ...ch,
-    score: cosineSim(qEmb, ch.embedding.slice(0, qEmb.length))
-  }));
-  scored.sort((a,b)=>b.score-a.score);
-  return scored.slice(0,3);
-}
-
-/* ---------------- Get AI-Powered Reply ---------------- */
-async function answerQuestion(question) {
-  const ctx = await findContext(question);
-  const snippets = ctx.map(c => c.content).join("\n\n");
-
-  const systemPrompt = `
-  You are AUI-Bot, the official AuditX Genesis assistant.
-  Use only the verified context below to answer clearly, concisely and professionally.
-  If unsure, say you don’t have that information.
-  -----
-  Context:
-  ${snippets}
-  -----
+  // Chat window
+  const chat = document.createElement("div");
+  chat.id = "aui-chat-window";
+  chat.style.cssText = `
+    position: fixed;
+    ${position.includes("bottom") ? "bottom: 90px;" : "top: 90px;"}
+    ${position.includes("right") ? "right: 20px;" : "left: 20px;"}
+    width: 320px; max-height: 460px;
+    background: rgba(17,24,39,0.95);
+    color: #e2e8f0;
+    border: 1px solid rgba(34,211,238,0.2);
+    border-radius: 12px;
+    box-shadow: 0 0 16px rgba(34,211,238,0.3);
+    display: none;
+    flex-direction: column;
+    font-family: system-ui, sans-serif;
+    overflow: hidden;
+    z-index: 9998;
   `;
+  chat.innerHTML = `
+    <div style="padding:10px; background:${accent}; color:#fff; font-weight:600;">
+      AUI-Bot 🤖
+    </div>
+    <div id="aui-messages" style="flex:1; padding:10px; overflow-y:auto; font-size:0.9rem;"></div>
+    <div style="display:flex; border-top:1px solid rgba(34,211,238,0.2);">
+      <input id="aui-input" placeholder="Ask about AuditX..." style="flex:1; padding:8px; border:none; background:#0f172a; color:#fff;"/>
+      <button id="aui-send" style="padding:8px 12px; background:${accent}; color:#fff; border:none; cursor:pointer;">➤</button>
+    </div>
+  `;
+  document.body.appendChild(chat);
+  document.body.appendChild(bubble);
 
-  const res = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${OPENAI_KEY}`
-    },
-    body: JSON.stringify({
-      model: CHAT_MODEL,
-      messages: [
-        { role: "system", content: systemPrompt },
-        { role: "user", content: question }
-      ],
-      temperature: 0.4
-    })
+  const messages = chat.querySelector("#aui-messages");
+  const input = chat.querySelector("#aui-input");
+  const sendBtn = chat.querySelector("#aui-send");
+
+  function appendMessage(text, from) {
+    const msg = document.createElement("div");
+    msg.style.margin = "6px 0";
+    msg.style.textAlign = from === "user" ? "right" : "left";
+    msg.innerHTML = from === "user"
+      ? `<div style="display:inline-block;background:${accent};padding:6px 10px;border-radius:8px;color:white;">${text}</div>`
+      : `<div style="display:inline-block;background:rgba(255,255,255,0.08);padding:6px 10px;border-radius:8px;">${text}</div>`;
+    messages.appendChild(msg);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  async function sendMessage() {
+    const text = input.value.trim();
+    if (!text) return;
+    appendMessage(text, "user");
+    input.value = "";
+
+    appendMessage("⏳ Thinking...", "bot");
+
+    try {
+      const context = await fetch("data/embeddings.json").then(r => r.json());
+      const reply = await fetch(
+        `https://api.openai.com/v1/chat/completions`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${OPENAI_API_KEY}`
+          },
+          body: JSON.stringify({
+            model: "gpt-4o-mini",
+            messages: [
+              { role: "system", content: "You are AUI-Bot, the AI auditor for AuditX Genesis. Use context if relevant." },
+              { role: "user", content: text },
+              { role: "system", content: JSON.stringify(context.slice(0, 3)) }
+            ]
+          })
+        }
+      ).then(r => r.json());
+
+      const message = reply.choices?.[0]?.message?.content || "⚠️ No response.";
+      messages.lastChild.remove(); // remove "Thinking..."
+      appendMessage(message, "bot");
+    } catch (e) {
+      messages.lastChild.remove();
+      appendMessage("⚠️ Error accessing OpenAI. Check your GitHub secret.", "bot");
+    }
+  }
+
+  sendBtn.addEventListener("click", sendMessage);
+  input.addEventListener("keypress", e => e.key === "Enter" && sendMessage());
+  bubble.addEventListener("click", () => {
+    chat.style.display = chat.style.display === "none" ? "flex" : "none";
   });
 
-  const data = await res.json();
-  return data.choices?.[0]?.message?.content || "No response available.";
+  appendMessage(welcome, "bot");
 }
-
-/* -------------------- Chat UI -------------------- */
-function initChatUI() {
-  const style = document.createElement("style");
-  style.textContent = `
-    #aui-btn {
-      position: fixed; bottom: 20px; right: 20px;
-      background: linear-gradient(90deg,#22d3ee,#10b981);
-      border: none; color: #000; font-weight: 700;
-      padding: 12px 20px; border-radius: 50px;
-      cursor: pointer; box-shadow: 0 0 18px rgba(34,211,238,0.4);
-      z-index: 9999;
-    }
-    #aui-chat {
-      position: fixed; bottom: 80px; right: 20px;
-      width: 350px; height: 430px;
-      background: rgba(10,14,22,0.96); color: #fff;
-      border: 1px solid rgba(34,211,238,0.25);
-      border-radius: 16px; padding: 12px;
-      display: none; flex-direction: column;
-      z-index: 9998;
-      font-family: system-ui, sans-serif;
-    }
-    #aui-chat.visi

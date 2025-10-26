@@ -4,19 +4,21 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>AuditX Genesis | Intelligent. Transparent. Immutable.</title>
-<meta name="description" content="AuditX Genesis | Redefining Blockchain Security & Investor Trust. AI-powered smart-contract audits with on-chain verification via auditx.io." />
-<meta property="og:title" content="AuditX Genesis | Redefining Blockchain Security & Investor Trust" />
-<meta property="og:description" content="AI-powered smart-contract auditing with on-chain verification." />
+
+<meta name="description" content="AuditX Genesis — AI-powered smart contract auditing with on-chain Proof-of-Audit verification.">
+<meta property="og:title" content="AuditX Genesis | Redefining Blockchain Security & Investor Trust">
+<meta property="og:description" content="Professional smart-contract auditing and verification via auditx.io — Intelligent, Transparent, Immutable.">
+<meta property="og:image" content="assets/auditx-logo.svg" />
 
 <link rel="icon" href="assets/favicon.png" sizes="32x32" />
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
 <link rel="stylesheet" href="assets/global-style.css" />
 
 <script>
-/* redirect GitHub preview → auditx.io */
-if (location.hostname.endsWith('github.io')) {
-  location.href = 'https://auditx.io' + location.pathname + location.search + location.hash;
-}
+  /* redirect GitHub Pages to custom domain */
+  if (location.hostname.endsWith('github.io')) {
+    location.href = 'https://auditx.io' + location.pathname + location.search + location.hash;
+  }
 </script>
 </head>
 
@@ -38,10 +40,10 @@ if (location.hostname.endsWith('github.io')) {
 
   <!-- STATUS TICKER -->
   <div class="ticker">
-    <span id="recent-audits">Loading status…</span>
+    <span id="recent-audits">Loading status …</span>
   </div>
 
-  <!-- DASHBOARD STATS -->
+  <!-- LIVE STATS -->
   <section class="stats">
     <div class="stat"><h2 id="total-audits">0</h2><p>Total Audits</p></div>
     <div class="stat"><h2 id="verified-audits">0</h2><p>Verified</p></div>
@@ -49,14 +51,13 @@ if (location.hostname.endsWith('github.io')) {
     <div class="stat"><h2 id="avg-confidence">0</h2><p>Avg Confidence</p></div>
   </section>
 
-  <!-- AUDIT TABLE -->
+  <!-- AUDIT LIST -->
   <section class="card">
     <div class="search">
-      <input id="q" placeholder="Search by company, project, chain, or status…" />
+      <input id="q" placeholder="Search by company, project, chain or status…" />
       <span class="pill" id="count">0 projects</span>
     </div>
-
-    <table class="table" id="audit-table">
+    <table class="table">
       <thead>
         <tr>
           <th>Company</th>
@@ -71,21 +72,18 @@ if (location.hostname.endsWith('github.io')) {
     </table>
   </section>
 
-  <!-- ON-CHAIN PROOF -->
+  <!-- ON-CHAIN VERIFICATION -->
   <section class="onchain card">
     <h2>🔗 On-Chain Verification (Coming Soon)</h2>
-    <p>
-      Every verified audit on AuditX Genesis will soon include an immutable on-chain proof — 
-      a cryptographic hash stored on-chain for transparency and trust.
-    </p>
+    <p>Every verified audit will include an immutable on-chain proof — a cryptographic hash stored on the blockchain for transparency and trust.</p>
     <ul>
       <li>✅ Verifiable authenticity of audit reports</li>
       <li>🔒 Tamper-proof record on Ethereum / Polygon / BSC</li>
-      <li>🌐 Public access to verification transactions</li>
+      <li>🪙 Public access to verification transactions</li>
     </ul>
     <p class="muted">
       <i>Prototype contract deployed at:</i>
-      <code>0x0000000000000000000000000000GENESIS</code><br />
+      <code>0x0000000000000000000000000000GENESIS</code><br>
       <i>Explorer integration & verification UI coming in v3.</i>
     </p>
     <div class="onchain-btns">
@@ -93,13 +91,13 @@ if (location.hostname.endsWith('github.io')) {
     </div>
   </section>
 
-  <!-- PRESS / API SECTION -->
+  <!-- PRESS / API -->
   <section class="press card">
     <h3>📰 Press & Listing Integration</h3>
     <p>Integrate the <b>AuditX Genesis Verification API</b> to confirm live audit status and confidence scores.</p>
     <ul>
-      <li><b>Verification API:</b> <code>https://auditx.io/data/audits.json</code></li>
-      <li><b>Badge Registry:</b> <code>https://auditx.io/data/badges.json</code></li>
+      <li><b>Verification API:</b> <code class="link">https://auditx.io/data/audits.json</code></li>
+      <li><b>Badge Registry:</b> <code class="link">https://auditx.io/data/badges.json</code></li>
       <li><b>Integration Contact:</b> <a href="mailto:cs@auditx.io">cs@auditx.io</a></li>
     </ul>
     <p>Benefits: Verified listings • API-driven status sync • Embed-ready badges • Real-time updates.</p>
@@ -109,13 +107,100 @@ if (location.hostname.endsWith('github.io')) {
   <footer class="footer">
     © <span id="year"></span> AuditX Genesis • <a href="https://auditx.io">auditx.io</a> • Intelligent. Transparent. Immutable.
   </footer>
-
 </div>
 
-<!-- JS ASSETS -->
+<!-- JS -->
 <script src="assets/scripts/countup.min.js"></script>
-<script src="assets/scripts/main.js"></script>
+
+<!-- === Dashboard Logic === -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const q = document.getElementById("q");
+  const tableBody = document.getElementById("audit-table-body");
+  const count = document.getElementById("count");
+  let rows = [];
+
+  fetch("data/audits.json")
+    .then(r => r.json())
+    .then(d => { rows = d; render(); buildStats(d); buildTicker(d); });
+
+  q.addEventListener("input", render);
+
+  function render() {
+    const n = (q.value || "").toLowerCase();
+    tableBody.innerHTML = "";
+    let shown = 0;
+
+    rows
+      .filter(r =>
+        !n ||
+        r.company.toLowerCase().includes(n) ||
+        r.project.toLowerCase().includes(n) ||
+        r.status.toLowerCase().includes(n)
+      )
+      .forEach(r => {
+        shown++;
+        let badgeClass = "b-gray";
+        const s = (r.status || "").toUpperCase();
+        if (s === "VERIFIED") badgeClass = "b-green";
+        else if (s.includes("PROGRESS")) badgeClass = "b-amber";
+        else if (s.includes("AUDIT")) badgeClass = "b-red";
+        const badgeHTML = `<span class="badge ${badgeClass}">${s || "PENDING"}</span>`;
+        const conf = typeof r.confidence === "number" ? `${r.confidence.toFixed(1)} / 5` : "—";
+        const linkHTML = (r.link && r.link.startsWith("http"))
+          ? `<a href="${r.link}" target="_blank" rel="noopener" class="view-link">View Audit →</a>`
+          : `<span class="muted">Coming Soon 🚀</span>`;
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${r.company || "-"}</td>
+          <td>${r.project || "-"}</td>
+          <td>${badgeHTML}</td>
+          <td>${conf}</td>
+          <td>${r.updated || "—"}</td>
+          <td>${linkHTML}</td>`;
+        tableBody.appendChild(tr);
+      });
+
+    count.textContent = `${shown} project${shown === 1 ? "" : "s"}`;
+  }
+
+  function buildStats(data) {
+    const total = data.length;
+    const verified = data.filter(a => (a.status || "").toUpperCase() === "VERIFIED").length;
+    const inAudit = data.filter(a => (a.status || "").toUpperCase().includes("AUDIT")).length;
+    const confVals = data.map(a => parseFloat(a.confidence)).filter(Number.isFinite);
+    const avg = confVals.length ? (confVals.reduce((a,b)=>a+b)/confVals.length).toFixed(1) : 0;
+    document.getElementById("total-audits").textContent = total;
+    document.getElementById("verified-audits").textContent = verified;
+    document.getElementById("in-audit").textContent = inAudit;
+    document.getElementById("avg-confidence").textContent = avg;
+    document.getElementById("year").textContent = new Date().getFullYear();
+  }
+
+  function buildTicker(data) {
+    const now = data.filter(a => (a.status || "").toUpperCase() !== "VERIFIED").map(a => a.project).join(" • ");
+    const done = data.filter(a => (a.status || "").toUpperCase() === "VERIFIED").map(a => a.project).join(" • ");
+    const el = document.getElementById("recent-audits");
+    if (el) el.textContent = `Now Auditing: ${now || "—"}   •   Recently Verified: ${done || "—"}`;
+  }
+});
+</script>
+
+<!-- === Chatbot Loader === -->
 <script src="assets/scripts/aui-chat.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  if (typeof initAUIChat === "function") {
+    initAUIChat({
+      welcome: "👋 Hi, I’m AUI-Bot! Ask me anything about AuditX Genesis — audits, tokenomics or PoA schema.",
+      position: "bottom-right",
+      accent: "#10B981"
+    });
+  } else {
+    console.error("❌ AUI-Bot failed to load — check aui-chat.js path.");
+  }
+});
+</script>
 
 </body>
 </html>
