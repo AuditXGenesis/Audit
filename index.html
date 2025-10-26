@@ -147,9 +147,16 @@ document.addEventListener("DOMContentLoaded", () => {
         else if (s.includes("AUDIT")) badgeClass = "b-red";
         const badgeHTML = `<span class="badge ${badgeClass}">${s || "PENDING"}</span>`;
         const conf = typeof r.confidence === "number" ? `${r.confidence.toFixed(1)} / 5` : "—";
-        const linkHTML = (r.link && r.link.startsWith("http"))
-          ? `<a href="${r.link}" target="_blank" rel="noopener" class="view-link">View Audit →</a>`
-          : `<span class="muted">Coming Soon 🚀</span>`;
+        let linkHTML;
+const s = (r.status || "").toUpperCase();
+
+// Show “View Audit” only for VERIFIED items with a valid link
+if (s === "VERIFIED" && r.link && r.link.startsWith("http")) {
+  linkHTML = `<a href="${r.link}" target="_blank" rel="noopener" class="view-link">View Audit →</a>`;
+} else {
+  linkHTML = `<span class="muted">Coming Soon 🚀</span>`;
+}
+
         const tr = document.createElement("tr");
         tr.innerHTML = `
           <td>${r.company || "-"}</td>
