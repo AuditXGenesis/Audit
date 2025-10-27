@@ -1,28 +1,56 @@
-{
-  "NovaVault_Treasury": {
-    "svg": "https://auditx.io/assets/badges/NovaVault_Treasury.svg",
-    "png": "https://auditx.io/assets/badges/NovaVault_Treasury.png",
-    "report": "https://auditx.io/audits/NovaVault_Treasury/"
+[
+  {
+    "contract": "0xAABBcc1122334455...",
+    "project": "NovaVault Treasury",
+    "badge": "green-ribbit.svg",
+    "score": "100",
+    "criteria_passed": [
+      "lpLockedDays",
+      "ownerIsMultisig",
+      "maxTax",
+      "noBlacklistAfterTGE",
+      "noMintFunctions",
+      "noTradingBlocker",
+      "noProxyOrLockedProxy"
+    ],
+    "status": "Green Ribbit Certified",
+    "timestamp": "2025-10-27T10:00:00Z"
   },
-  "OrbitDEX_Perpetuals": {
-    "svg": "https://auditx.io/assets/badges/OrbitDEX_Perpetuals.svg",
-    "png": "https://auditx.io/assets/badges/OrbitDEX_Perpetuals.png",
-    "report": "https://auditx.io/audits/OrbitDEX_Perpetuals/"
+  {
+    "contract": "0x33445566778899AA...",
+    "project": "Nebula Finance",
+    "badge": "gold-ribbit.svg",
+    "score": "85",
+    "criteria_passed": [
+      "lpLockedDays",
+      "ownerIsMultisig",
+      "maxTax",
+      "noMintFunctions",
+      "noTradingBlocker"
+    ],
+    "status": "Gold Ribbit Verified",
+    "timestamp": "2025-10-27T10:00:00Z"
   },
-  "Nebula_Finance": {
-    "svg": "https://auditx.io/assets/badges/Nebula_Finance.svg",
-    "png": "https://auditx.io/assets/badges/Nebula_Finance.png",
-    "report": "https://auditx.io/audits/Nebula_Finance/"
+  {
+    "contract": "0xFFEEDDCCBBAA9988...",
+    "project": "AtlasLend Risk Engine",
+    "badge": "silver-ribbit.svg",
+    "score": "65",
+    "criteria_passed": [
+      "lpLockedDays",
+      "noMintFunctions",
+      "noBlacklistAfterTGE"
+    ],
+    "status": "Silver Ribbit Reviewed",
+    "timestamp": "2025-10-27T10:00:00Z"
   },
-  "AtlasLend_RiskEngine": {
-    "svg": "https://auditx.io/assets/badges/AtlasLend_RiskEngine.svg",
-    "png": "https://auditx.io/assets/badges/AtlasLend_RiskEngine.png",
-    "report": "https://auditx.io/audits/AtlasLend_RiskEngine/"
-  },
-  "_generic": {
-    "verified_svg": "https://auditx.io/assets/badges/badge-verified.svg",
-    "verified_png": "https://auditx.io/assets/badges/badge-verified.png",
-    "inaudit_svg": "https://auditx.io/assets/badges/badge-in-audit.svg",
-    "inaudit_png": "https://auditx.io/assets/badges/badge-in-audit.png"
+  {
+    "contract": "0xBADF00D123456789...",
+    "project": "OrbitDEX Perpetuals",
+    "badge": "red-ribbit.svg",
+    "score": "25",
+    "criteria_passed": [],
+    "status": "Red Ribbit Alert",
+    "timestamp": "2025-10-27T10:00:00Z"
   }
-}
+]

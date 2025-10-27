@@ -1,0 +1,38 @@
+{
+  "criteria": {
+    "lpLockedDays": {
+      "min": 90,
+      "description": "Liquidity pool must be locked for at least 90 days"
+    },
+    "ownerIsMultisig": {
+      "required": true,
+      "description": "Ownership must be multisig or renounced"
+    },
+    "maxTax": {
+      "max": 5,
+      "description": "Maximum buy/sell tax must not exceed 5%"
+    },
+    "noBlacklistAfterTGE": {
+      "required": true,
+      "description": "Blacklist functions must be disabled after TGE"
+    },
+    "noMintFunctions": {
+      "required": true,
+      "description": "No unrestricted mint functions"
+    },
+    "noTradingBlocker": {
+      "required": true,
+      "description": "Contract must not indefinitely block trading"
+    },
+    "noProxyOrLockedProxy": {
+      "required": true,
+      "description": "Contract must not use or must lock proxy"
+    }
+  },
+  "evaluation": {
+    "green": "Meets all 7 criteria",
+    "gold": "Meets 5\u20136 criteria",
+    "silver": "Meets 3\u20134 criteria",
+    "red": "Fails \u22653 critical checks"
+  }
+}
